@@ -1,13 +1,10 @@
 ---
 layout: post
 title:  "Leetcode: Valid Number"
-date:   2017-01-25 21:46:03
 categories: [leetcode]
 comments: true
+modified: 2017-01-25 21:46:03
 ---
-
-
-
 ## Question
 
 >Validate if a given string is numeric.
@@ -21,7 +18,7 @@ comments: true
 >     "1 a" => false
 >     "2e10" => true
 >
-
+<!--more-->
 
 ## Recursive Descent Parsing
 By observing the samples above, we can draw an LL(1) grammar:  
