@@ -5,6 +5,9 @@ date:   2017-01-25 21:46:03
 categories: [leetcode]
 comments: true
 ---
+
+
+
 ## Question
 
 >Validate if a given string is numeric.
