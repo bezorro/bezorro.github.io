@@ -5,7 +5,6 @@ date:   2017-01-23 09:58:03
 categories: [leetcode]
 comments: true
 ---
-<!--more-->
 ## Question
 
 >Given an array of integers, return indices of the two numbers such that they add up to a specific target.
@@ -17,7 +16,7 @@ comments: true
 >     Because nums[0] + nums[1] = 2 + 7 = 9,
 >     return [0, 1].
 >
-
+<!--more-->
 
 ## Brute Force
 A simple brute force by Looping through each element x and find if there is another value that equals to target - x.
