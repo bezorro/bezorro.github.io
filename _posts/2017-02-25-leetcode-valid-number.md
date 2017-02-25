@@ -21,29 +21,29 @@ comments: true
 
 
 ## Recursive Descent Parsing
-By observing the samples above, we can draw an LL(1) grammar:
-        Number => Spaces,RealNumber,Exponent,Spaces  
-        Exponent => Empty  
-                 => 'e',Integer  
-        Integer => '+',RInteger  
-                => '-',RInteger  
-                => RInteger  
-        RInteger => '0',EInteger  
-                 ...  
-                 => '9',EInteger  
-        EInteger => Empty  
-                 => '0',EInteger  
-                 ...  
-                 => '9',EInteger  
-        RealNumber => '+',RRealNumber  
-                   => '-',RRealNumber  
-                   => RRealNumber  
-        Spaces => Empty  
-               => ' ',Spaces  
+By observing the samples above, we can draw an LL(1) grammar:  
+&emsp;&emsp;Number => Spaces,RealNumber,Exponent,Spaces  
+&emsp;&emsp;Exponent => Empty  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; => 'e',Integer  
+&emsp;&emsp;Integer => '+',RInteger  
+&emsp;&emsp;&emsp;&emsp;&emsp; => '-',RInteger  
+&emsp;&emsp;&emsp;&emsp; &emsp;=> RInteger  
+&emsp;&emsp;RInteger => '0',EInteger  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=> '9',EInteger  
+&emsp;&emsp;EInteger => Empty  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=> '0',EInteger  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;...  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=> '9',EInteger  
+&emsp;&emsp;RealNumber => '+',RRealNumber  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; => '-',RRealNumber  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;=> RRealNumber  
+&emsp;&emsp;Spaces => Empty  
+&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; => '&ensp;',Spaces  
 {% highlight cpp %}
 class Solution {
 public:
-	char readChar(const string &s, const int cur)
+    char readChar(const string &s, const int cur)
     {
         if(cur >=0 && cur < s.size())
             return s[cur];
