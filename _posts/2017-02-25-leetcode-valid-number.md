@@ -22,24 +22,24 @@ comments: true
 
 ## Recursive Descent Parsing
 By observing the samples above, we can draw an LL(1) grammar:
-        Number => Spaces,RealNumber,Exponent,Spaces
-        Exponent => Empty
-                 => 'e',Integer
-        Integer => '+',RInteger
-                => '-',RInteger
-                => RInteger
-        RInteger => '0',EInteger
-                 ...
-                 => '9',EInteger
-        EInteger => Empty
-                 => '0',EInteger
-                 ...
-                 => '9',EInteger
-        RealNumber => '+',RRealNumber
-                   => '-',RRealNumber
-                   => RRealNumber
-        Spaces => Empty
-               => ' ',Spaces
+        Number => Spaces,RealNumber,Exponent,Spaces  
+        Exponent => Empty  
+                 => 'e',Integer  
+        Integer => '+',RInteger  
+                => '-',RInteger  
+                => RInteger  
+        RInteger => '0',EInteger  
+                 ...  
+                 => '9',EInteger  
+        EInteger => Empty  
+                 => '0',EInteger  
+                 ...  
+                 => '9',EInteger  
+        RealNumber => '+',RRealNumber  
+                   => '-',RRealNumber  
+                   => RRealNumber  
+        Spaces => Empty  
+               => ' ',Spaces  
 {% highlight cpp %}
 class Solution {
 public:
