@@ -10,7 +10,7 @@ comments: true
 >Validate if a given string is numeric.
 >You may assume that each input would have exactly one solution.
 >
-> ###Some examples:
+> ### Some examples:
 >
 >     "0" => true
 >     " 0.1 " => true
