@@ -5,6 +5,7 @@ date:   2017-01-23 09:58:03
 categories: [leetcode]
 comments: true
 ---
+<!--more-->
 ## Question
 
 >Given an array of integers, return indices of the two numbers such that they add up to a specific target.
