@@ -132,7 +132,7 @@
       <span class="read-time" title="Estimated read time">
   
   
-    8 mins read
+    11 mins read
   
 </span>
 
@@ -294,6 +294,55 @@ You may assume that each input would have exactly one solution.</p>
 </span>        <span class="n">c</span> <span class="o">=</span> <span class="n">matchNumber</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">matchSpaces</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
         <span class="k">return</span> <span class="n">c</span> <span class="o">==</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<ul>
+  <li>Time Complexity: O(n)</li>
+  <li>Space Complexity: O(1)</li>
+</ul>
+
+<h2 id="deterministic-finite-automata">Deterministic Finite Automata</h2>
+<p>By observing the samples above, we can draw a DFA.
+The structure is shown in the code.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">10</span><span class="p">];</span>
+    <span class="cp">#define ACCEPT 999
+</span>    <span class="kt">int</span> <span class="n">cnt</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">state</span><span class="p">;</span>
+    
+    <span class="kt">void</span> <span class="nf">init</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="sc">' '</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="sc">'s'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="sc">'.'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="sc">'.'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="sc">'.'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="sc">'e'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="sc">'#'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ACCEPT</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="sc">' '</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="sc">'e'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="sc">'#'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ACCEPT</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="sc">' '</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="sc">'s'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="sc">' '</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">7</span><span class="p">][</span><span class="sc">'#'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ACCEPT</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">8</span><span class="p">][</span><span class="sc">' '</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span> <span class="n">DFA</span><span class="p">[</span><span class="mi">8</span><span class="p">][</span><span class="sc">'#'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ACCEPT</span><span class="p">;</span>
+        <span class="n">DFA</span><span class="p">[</span><span class="mi">9</span><span class="p">][</span><span class="sc">'d'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kr">inline</span> <span class="kt">char</span> <span class="nf">readOne</span><span class="p">(</span><span class="n">string</span> <span class="o">&amp;</span> <span class="n">s</span><span class="p">)</span>
+    <span class="p">{</span>   
+        <span class="kt">char</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">cnt</span> <span class="o">&gt;=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="n">ans</span> <span class="o">=</span> <span class="sc">'#'</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">isdigit</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">cnt</span><span class="p">]))</span> <span class="n">ans</span> <span class="o">=</span> <span class="sc">'d'</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">cnt</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'+'</span> <span class="o">||</span> <span class="n">s</span><span class="p">[</span><span class="n">cnt</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'-'</span><span class="p">)</span> <span class="n">ans</span> <span class="o">=</span> <span class="sc">'s'</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">cnt</span><span class="p">];</span>
+        <span class="o">++</span><span class="n">cnt</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">isNumber</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">init</span><span class="p">();</span>
+        <span class="k">while</span><span class="p">((</span><span class="n">state</span> <span class="o">=</span> <span class="n">DFA</span><span class="p">[</span><span class="n">state</span><span class="p">][</span><span class="n">readOne</span><span class="p">(</span><span class="n">s</span><span class="p">)])</span> <span class="o">&amp;&amp;</span> <span class="n">state</span> <span class="o">!=</span> <span class="n">ACCEPT</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">state</span> <span class="o">==</span> <span class="n">ACCEPT</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span></code></pre></figure>
 

@@ -160,6 +160,53 @@ public:
 - Time Complexity: O(n)
 - Space Complexity: O(1)
 
+## Deterministic Finite Automata
+By observing the samples above, we can draw a DFA.
+The structure is shown in the code.
+{% highlight cpp %}
+class Solution {
+public:
+    map<char,int> DFA[10];
+    #define ACCEPT 999
+    int cnt;
+    int state;
+    
+    void init()
+    {
+        cnt = 0;
+        state = 1;
+        DFA[1][' '] = 1; DFA[1]['s'] = 2; DFA[1]['d'] = 3; DFA[1]['.'] = 9;
+        DFA[2]['d'] = 3; DFA[2]['.'] = 9;
+        DFA[3]['d'] = 3; DFA[3]['.'] = 4; DFA[3]['e'] = 5; DFA[3]['#'] = ACCEPT; DFA[3][' '] = 8;
+        DFA[4]['d'] = 4; DFA[4]['e'] = 5; DFA[4]['#'] = ACCEPT; DFA[4][' '] = 8;
+        DFA[5]['d'] = 7; DFA[5]['s'] = 6;
+        DFA[6]['d'] = 7;
+        DFA[7]['d'] = 7; DFA[7][' '] = 8; DFA[7]['#'] = ACCEPT;
+        DFA[8][' '] = 8; DFA[8]['#'] = ACCEPT;
+        DFA[9]['d'] = 4;
+    }
+    
+    inline char readOne(string & s)
+    {   
+        char ans;
+        if(cnt >= s.size()) ans = '#';
+        else if(isdigit(s[cnt])) ans = 'd';
+        else if(s[cnt] == '+' || s[cnt] == '-') ans = 's';
+        else ans = s[cnt];
+        ++cnt;
+        return ans;
+    }
+
+    bool isNumber(string s) {
+        init();
+        while((state = DFA[state][readOne(s)]) && state != ACCEPT);
+        return state == ACCEPT;
+    }
+};
+{% endhighlight %}
+- Time Complexity: O(n)
+- Space Complexity: O(1)
+
 ## Finding law
 By observing the samples above, we can find the law and solve it directly
 {% highlight cpp %}
