@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Leetcode: Regular Expression Matching</title>
+  <meta name="description" content="Question  Implement regular expression matching with support for ‘.’ and ‘*’.   '.' Matches any single character. '*' Matches zero or more of the preceding e...">
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="http://localhost:4000/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://localhost:4000/css/main.css">
+
+  <link rel="canonical" href="http://localhost:4000/articles/2017-03/leetcode-regular-expression-matching">
+  <link rel="alternate" type="application/rss+xml" title="windLBL" href="http://localhost:4000/feed.xml" />
+
+  <!-- Icons -->
+  <!-- 16x16 -->
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+  <!-- 32x32 -->
+  <link rel="shortcut icon" href="http://localhost:4000/favicon.png">
+</head>
+
+
+<body>
+  <div class="row">
+    <div class="col s12 m3">
+      <div class="table cover">
+        
+
+<div class="cover-card table-cell table-middle">
+  
+  <img src="http://localhost:4000/img/blzorro.png" alt="" class="avatar">
+  
+  <a href="http://localhost:4000/" class="author_name">windLBL</a>
+  <span class="author_job">a place for us to dream</span>
+  <span class="author_bio mbm">Always Believe</span>
+  <nav class="nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="http://localhost:4000/">home</a>
+        <span>/</span>
+      </li>
+       
+      <li class="nav-item">
+        <a href="http://localhost:4000/archive/">Archive</a>
+        
+          <span>/</span>
+        
+      </li>
+          
+      <li class="nav-item">
+        <a href="http://localhost:4000/categories/">Categories</a>
+        
+          <span>/</span>
+        
+      </li>
+            
+      <li class="nav-item">
+        <a href="http://localhost:4000/tags/">Tags</a>
+        
+      </li>
+       
+    </ul>
+  </nav>
+  <script type="text/javascript">
+  // based on http://stackoverflow.com/a/10300743/280842
+  function gen_mail_to_link(hs, subject) {
+    var lhs,rhs;
+    var p = hs.split('@');
+    lhs = p[0];
+    rhs = p[1];
+    document.write("<a class=\"social-link-item\" target=\"_blank\" href=\"mailto");
+    document.write(":" + lhs + "@");
+    document.write(rhs + "?subject=" + subject + "\"><i class=\"fa fa-fw fa-envelope\"></i><\/a>");
+  }
+</script>
+<div class="social-links">
+  <ul>
+    
+      <li>
+      <script>gen_mail_to_link('bl-zorro@163.com', 'Hello from website');</script>
+      </li>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </ul>
+</div>
+
+</div>
+
+      </div>
+    </div>
+    <div class="col s12 m9">
+      <div class="post-listing">
+        <a class="btn" href= "http://localhost:4000/" >
+  Home
+</a>
+
+
+
+<div id="post">
+  <header class="post-header">
+    <h1 title="Leetcode: Regular Expression Matching">Leetcode: Regular Expression Matching</h1>
+    <span class="post-meta">
+      <span class="post-date">
+        1 MAR 2017
+      </span>
+      •
+      <span class="read-time" title="Estimated read time">
+  
+  
+    4 mins read
+  
+</span>
+
+    </span>
+
+  </header>
+
+  <article class="post-content">
+    <h2 id="question">Question</h2>
+
+<blockquote>
+  <p>Implement regular expression matching with support for ‘.’ and ‘*’.</p>
+
+  <div class="highlighter-rouge"><pre class="highlight"><code> '.' Matches any single character.
+ '*' Matches zero or more of the preceding element.
+
+ The matching should cover the entire input string (not partial).
+
+ The function prototype should be:
+ bool isMatch(const char *s, const char *p)
+
+ Some examples:
+ isMatch("aa","a") → false
+ isMatch("aa","aa") → true
+ isMatch("aaa","aa") → false
+ isMatch("aa", "a*") → true
+ isMatch("aa", ".*") → true
+ isMatch("ab", ".*") → true
+ isMatch("aab", "c*a*b") → true &lt;!--more--&gt;
+</code></pre>
+  </div>
+</blockquote>
+
+<h2 id="dynamic-programming">Dynamic Programming</h2>
+<p>f(i,j) represents whether the first i letters of string s can be matched by the first j letters of regular expression p(0 means no and 1 means yes).
+Therefore, the recursion formula can be written as:<br />
+  (1) if <code class="highlighter-rouge">p[i] == '.'</code>, f(i,j) = f(i-1,j-1)<br />
+  (2) if <code class="highlighter-rouge">p[i] == '*'</code>, 
+            f(i,j) = f(i,j-2) or { <code class="highlighter-rouge">s[i] match p[j-1]</code> and f(i-1,j) }<br />
+  (3) if <code class="highlighter-rouge">p[i] != '.'</code> and <code class="highlighter-rouge">p[i] != '*'</code>, <br />
+    f(i,j) = f(i-1,j-1), when <code class="highlighter-rouge">s[i] == p[j]</code><br />
+    f(i,j) = 0, when <code class="highlighter-rouge">s[i] != p[j]</code></p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">bool</span> <span class="nf">isMatch</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span> <span class="n">s</span><span class="p">,</span><span class="kt">char</span> <span class="o">*</span> <span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">lens</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="o">--</span><span class="p">),</span> <span class="n">lenp</span> <span class="o">=</span> <span class="n">strlen</span><span class="p">(</span><span class="n">p</span><span class="o">--</span><span class="p">);</span>
+    <span class="n">bool</span> <span class="n">f</span><span class="p">[</span><span class="n">lens</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">lenp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+    
+    <span class="n">memset</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="k">sizeof</span><span class="p">(</span><span class="n">f</span><span class="p">));</span>
+    <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">lenp</span><span class="p">;</span><span class="o">++</span><span class="n">j</span><span class="p">)</span>
+        <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'*'</span> <span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">2</span><span class="p">];</span><span class="c1">//init
+</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">j</span> <span class="o">&lt;=</span> <span class="n">lenp</span><span class="p">;</span><span class="o">++</span><span class="n">j</span><span class="p">)</span>
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">lens</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'*'</span><span class="p">)</span>
+            <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">||</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">||</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'.'</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">||</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">'.'</span><span class="p">)</span> 
+            <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">[</span><span class="n">lens</span><span class="p">][</span><span class="n">lenp</span><span class="p">];</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Time Complexity: O(n^2)</li>
+  <li>Space Complexity: O(n^2)</li>
+</ul>
+
+<h2 id="finding-law">Finding law</h2>
+<p>By observing the samples above, we can find the law and solve it directly</p>
+
+<figure class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">bool</span> <span class="nf">isMatch</span><span class="p">(</span><span class="kt">char</span> <span class="o">*</span><span class="n">s</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">p</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="n">p</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="o">==</span><span class="mi">0</span> <span class="o">||</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="o">==</span><span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="o">*</span><span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">!=</span><span class="sc">'*'</span><span class="p">)</span> <span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">!=</span> <span class="sc">'*'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="o">*</span><span class="n">p</span> <span class="o">==</span> <span class="o">*</span><span class="n">s</span> <span class="o">||</span> <span class="o">*</span><span class="n">p</span> <span class="o">==</span> <span class="sc">'.'</span><span class="p">)</span> <span class="o">?</span> <span class="n">isMatch</span><span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">:</span> <span class="nb">false</span><span class="p">;</span>
+
+    <span class="k">do</span> <span class="k">if</span> <span class="p">(</span><span class="n">isMatch</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span> <span class="o">+</span> <span class="mi">2</span><span class="p">))</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">s</span><span class="o">++</span><span class="p">)</span> <span class="o">==</span> <span class="o">*</span><span class="n">p</span> <span class="o">||</span> <span class="o">*</span><span class="n">p</span> <span class="o">==</span> <span class="sc">'.'</span><span class="p">));</span>
+    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>Time Complexity: O(n)</li>
+  <li>Space Complexity: O(1)</li>
+</ul>
+
+  </article>
+</div>
+
+<div class="share-buttons">
+  <h6>Share on: </h6>
+  <ul>
+    <li>
+      <a href="https://twitter.com/intent/tweet?text=http://localhost:4000/articles/2017-03/leetcode-regular-expression-matching" class="twitter btn" title="Share on Twitter"><i class="fa fa-twitter"></i><span> Twitter</span></a>
+    </li>
+    <li>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/articles/2017-03/leetcode-regular-expression-matching" class="facebook btn" title="Share on Facebook"><i class="fa fa-facebook"></i><span> Facebook</span></a>
+    </li>
+    <li>
+      <a href="https://plus.google.com/share?url=http://localhost:4000/articles/2017-03/leetcode-regular-expression-matching" class="google-plus btn" title="Share on Google Plus"><i class="fa fa-google-plus"></i><span> Google+</span></a>
+    </li>
+    <li>
+      <a href="https://news.ycombinator.com/submitlink?u=http://localhost:4000/articles/2017-03/leetcode-regular-expression-matching" class="hacker-news btn" title="Share on Hacker News"><i class="fa fa-hacker-news"></i><span> Hacker News</span></a>
+    </li>
+    <li>
+      <a href="https://www.reddit.com/submit?url=http://localhost:4000/articles/2017-03/leetcode-regular-expression-matching" class="reddit btn" title="Share on Reddit"><i class="fa fa-reddit"></i><span> Reddit</span></a>
+    </li>
+  </ul>
+</div><!-- end share-buttons -->
+
+
+
+        <footer>
+  &copy; 2017 windLBL. Powered by <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://github.com/renyuanz/leonids/">leonids theme</a> made with <i class="fa fa-heart heart-icon"></i>
+</footer>
+
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="http://localhost:4000/js/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="http://localhost:4000/js/main.js"></script>
+
+
+</body>
+</html>
