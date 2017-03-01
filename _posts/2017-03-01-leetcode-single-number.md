@@ -10,7 +10,7 @@ modified: 2017-03-01 17:43:03
 >Given an array of integers, every element appears twice except for one. Find that single one.
 <!--more-->
 
-## XOR Bit Manipulation
+## Bit Manipulation
 Note that `a XOR a = 0`. Therefore, if the element exist twice, the XOR would be 0 so that only the single one remains. 
 {% highlight c %}
 int singleNumber(int* nums, int numsSize) {
