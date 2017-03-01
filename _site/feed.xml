@@ -5,9 +5,41 @@
     <description>Always Believe</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Wed, 01 Mar 2017 08:35:20 +0100</pubDate>
-    <lastBuildDate>Wed, 01 Mar 2017 08:35:20 +0100</lastBuildDate>
+    <pubDate>Wed, 01 Mar 2017 10:49:38 +0100</pubDate>
+    <lastBuildDate>Wed, 01 Mar 2017 10:49:38 +0100</lastBuildDate>
     <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>Leetcode: Single Number</title>
+        <description>&lt;h2 id=&quot;question&quot;&gt;Question&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Given an array of integers, every element appears twice except for one. Find that single one.
+&lt;!--more--&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;xor-bit-manipulation&quot;&gt;XOR Bit Manipulation&lt;/h2&gt;
+&lt;p&gt;Note that &lt;code class=&quot;highlighter-rouge&quot;&gt;a XOR a = 0&lt;/code&gt;. Therefore, if the element exist twice, the XOR would be 0 so that only the single one remains.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;singleNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;numsSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numsSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numsSize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Time Complexity: O(n)&lt;/li&gt;
+  &lt;li&gt;Space Complexity: O(1)&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 01 Mar 2017 00:00:00 +0100</pubDate>
+        <link>http://localhost:4000/articles/2017-03/leetcode-single-number</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/2017-03/leetcode-single-number</guid>
+        
+        
+        <category>leetcode</category>
+        
+      </item>
     
       <item>
         <title>Leetcode: Regular Expression Matching</title>
