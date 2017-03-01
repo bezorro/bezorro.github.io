@@ -11,7 +11,7 @@ modified: 2017-03-01 21:29:03
 <!--more-->
 
 ## Bit Manipulation
-If XOR operation is the addition in binary system, which can solve `Single Number I`, we can use addition in ternary system to solve this problem.
+If XOR operation is the addition in binary system, which can solve [`Single Number`](https://leetcode.com/problems/single-number/?tab=Description), we can use addition in ternary system to solve this problem.
 H and L represents the higher and the lower bit of a ternary number.  
 {% highlight cpp %}
 class Solution {
